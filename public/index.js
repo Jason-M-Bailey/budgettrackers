@@ -1,6 +1,8 @@
+// start with an empty array, used to push new transactions into
 let transactions = [];
 let myChart;
 
+// todo: what does this do?
 fetch("/api/transaction")
   .then((response) => {
     return response.json();
@@ -14,20 +16,25 @@ fetch("/api/transaction")
     populateChart();
   });
 
+
+// todo: how does reduce work?
 function populateTotal() {
   // reduce transaction amounts to a single total value
   let total = transactions.reduce((total, t) => {
     return total + parseInt(t.value);
   }, 0);
 
+  // todo: is this the overall total?
   let totalEl = document.querySelector("#total");
   totalEl.textContent = total;
 }
+
 
 function populateTable() {
   let tbody = document.querySelector("#tbody");
   tbody.innerHTML = "";
 
+  // forEach loop through all transactions
   transactions.forEach((transaction) => {
     // create and populate a table row
     let tr = document.createElement("tr");
@@ -39,6 +46,7 @@ function populateTable() {
     tbody.appendChild(tr);
   });
 }
+
 
 function populateChart() {
   // copy array and reverse it
@@ -80,6 +88,8 @@ function populateChart() {
   });
 }
 
+
+// 
 function sendTransaction(isAdding) {
   let nameEl = document.querySelector("#t-name");
   let amountEl = document.querySelector("#t-amount");
