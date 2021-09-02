@@ -6,7 +6,8 @@ const mongoose = require("mongoose");
 const compression = require("compression");
 
 // todo: do i need process.env.PORT || 3000 ?
-const PORT = 3000;
+// if don't reference port then heroku can not work
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
@@ -19,7 +20,10 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost/budget", {
+
+// MONGODB_URI - is undefined locally - it exists on heroku 
+
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useNewUrlParser: true,
   useFindAndModify: false
 });
